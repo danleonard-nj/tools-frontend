@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterScenesByCategory } from '../../../store/kasa/actions/sceneActions';
@@ -22,10 +22,12 @@ const KasaSceneGrid = () => {
         <Grid
           item
           key={scene.scene_id}
-          lg={6}
+          lg={12}
           sx={{ padding: 1 }}
           id={`kasa-scene-display-grid-scene-container-id-${scene.scene_id}`}>
-          <SceneButton scene={scene} />
+          <Box sx={{ display: 'flex' }}>
+            <SceneButton scene={scene} />
+          </Box>
         </Grid>
       ))}
     </Grid>

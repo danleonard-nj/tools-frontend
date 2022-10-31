@@ -3,7 +3,6 @@ import { sortBy } from '../../../api/helpers/apiHelpers';
 import SceneApi from '../../../api/kasa/sceneApi';
 import { popErrorMessage, popMessage } from '../../alert/alertActions';
 import {
-  setAllScenes,
   setFilteredScenes,
   setIsNew,
   setSceneCategories,
@@ -25,11 +24,22 @@ export default class SceneActions {
         }
       };
 
-      const result = this.sceneApi.createSceneCategory({
+      const handleGetSceneCategoriesResult = (status) => {
+        if (status !== 200) {
+          dispatch(popErrorMessage('Failed to fetch scene category list'));
+        }
+      };
+
+      const result = await this.sceneApi.createSceneCategory({
         scene_category: categoryName,
       });
 
       handleCreateSceneCategoryResult(result.status);
+
+      const sceneCategories = await this.sceneApi.getSceneCategories();
+
+      handleGetSceneCategoriesResult(sceneCategories.status);
+      dispatch(setSceneCategories(sceneCategories.data));
     };
   }
 
@@ -110,6 +120,33 @@ export default class SceneActions {
       if (response?.status === 200) {
         dispatch(setSceneCategories(response?.data));
       }
+    };
+  }
+
+  deleteSceneCategory(categoryId) {
+    return async (dispatch, getState) => {
+      const handleResultMessage = (status) => {
+        if (status !== 200) {
+          dispatch(popErrorMessage('Failed to delete scene category'));
+        }
+      };
+
+      const response = await this.sceneApi.deleteSceneCategory(categoryId);
+      handleResultMessage(response?.status);
+
+      // Pop a message if delete was a success
+      if (response?.status === 200) {
+        dispatch(popMessage('Scene category deleted successfully'));
+      }
+
+      const scenes = await this.sceneApi.getSceneCategories();
+      console.log('Fetching scenes');
+
+      if (scenes.status !== 200) {
+        popErrorMessage('Failed to fetch updated scene list');
+      }
+
+      dispatch(setSceneCategories(scenes.data));
     };
   }
 
@@ -232,4 +269,5 @@ export const {
   getAllScenes,
   filterScenesByCategory,
   createSceneCategory,
+  deleteSceneCategory,
 } = new SceneActions();

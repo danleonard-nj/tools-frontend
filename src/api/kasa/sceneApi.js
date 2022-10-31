@@ -31,6 +31,16 @@ export default class SceneApi extends ApiBase {
     return { data: json, status: response.status };
   }
 
+  async deleteScene(sceneId) {
+    const response = await fetch(`${this.baseUrl}/api/kasa/scene/${sceneId}`, {
+      method: 'DELETE',
+      headers: await this.getAuthHeaders(),
+    });
+
+    const json = await response.json();
+    return { data: json, status: response.status };
+  }
+
   async getSceneCategories() {
     const response = await fetch(`${this.baseUrl}/api/kasa/scene/category`, {
       method: 'GET',
@@ -52,11 +62,14 @@ export default class SceneApi extends ApiBase {
     return { data: json, status: response.status };
   }
 
-  async deleteScene(sceneId) {
-    const response = await fetch(`${this.baseUrl}/api/kasa/scene/${sceneId}`, {
-      method: 'DELETE',
-      headers: await this.getAuthHeaders(),
-    });
+  async deleteSceneCategory(sceneId) {
+    const response = await fetch(
+      `${this.baseUrl}/api/kasa/scene/category/${sceneId}`,
+      {
+        method: 'DELETE',
+        headers: await this.getAuthHeaders(),
+      }
+    );
 
     const json = await response.json();
     return { data: json, status: response.status };

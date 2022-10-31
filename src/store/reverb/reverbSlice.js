@@ -7,7 +7,7 @@ export const initialOrderDetail = {
   weight: 0,
 };
 
-const initialState = {
+const reverbState = {
   orderDetail: initialOrderDetail,
   ordersLoading: true,
   orders: [],
@@ -18,7 +18,7 @@ const initialState = {
 
 const reverbSlice = createSlice({
   name: 'reverb',
-  initialState,
+  initialState: reverbState,
   reducers: {
     setOrders(state, { payload }) {
       state.ordersLoading = false;

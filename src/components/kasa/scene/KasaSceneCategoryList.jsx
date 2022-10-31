@@ -7,6 +7,7 @@ import {
 import {
   Button,
   ButtonGroup,
+  Divider,
   Grid,
   IconButton,
   List,
@@ -15,6 +16,7 @@ import {
   ListItemText,
   Paper,
   TextField,
+  Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
@@ -24,6 +26,7 @@ import { scrollable } from '../../../api/helpers/formattingHelpers';
 import { dialogType, openDialog } from '../../../store/dialog/dialogSlice';
 import {
   createSceneCategory,
+  deleteSceneCategory,
   filterScenesByCategory,
   getCategories,
 } from '../../../store/kasa/actions/sceneActions';
@@ -50,12 +53,16 @@ const KasaSceneCategoryListActions = ({ item }) => {
     dispatch(openDialog(dialogType.sceneCategoryRemove));
   };
 
+  const handleDeleteCategory = (categoryId) => {
+    dispatch(deleteSceneCategory(categoryId));
+  };
+
   return (
     <ButtonGroup>
       <IconButton
         edge='end'
         aria-label='comments'
-        onClick={() => openSceneCategoryAddDialog(item?.scene_category_id)}>
+        onClick={() => handleDeleteCategory(item?.scene_category_id)}>
         <Delete />
       </IconButton>
       <IconButton
@@ -95,28 +102,40 @@ const KasaSceneCategoryList = () => {
   };
 
   return (
-    <Paper elevation={3} sx={{ padding: 1, m: 1 }}>
+    <Paper elevation={4} sx={{ padding: 1, m: 1 }}>
       <Grid container>
         <Grid item lg={12}>
-          <Box display='flex' justifyContent='flex-end'>
-            <Button onClick={() => handleToggleNewCategory()}>
-              {isNewCategory ? 'Cancel' : 'Add'}
-            </Button>
-          </Box>
+          <Grid container>
+            <Grid item lg={6} sx={{ margin: 'auto' }}>
+              <Typography variant='h6'>Scene Categories</Typography>
+            </Grid>
+            <Grid item lg={6}>
+              <Box display='flex' justifyContent='flex-end'>
+                <Button onClick={() => handleToggleNewCategory()}>
+                  {isNewCategory ? 'Cancel' : 'Add'}
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
         </Grid>
         <Grid item lg={12}>
-          <List component='nav' sx={scrollable}>
+          <List sx={scrollable}>
             {sceneCategories.map((item) => (
-              <ListItem
-                secondaryAction={<KasaSceneCategoryListActions item={item} />}>
-                <ListItemButton
-                  key={item?.scene_category_id}
-                  onClick={() =>
-                    handleSelectSceneCategory(item?.scene_category_id)
+              <>
+                <ListItem
+                  secondaryAction={
+                    <KasaSceneCategoryListActions item={item} />
                   }>
-                  <ListItemText primary={item.scene_category} />
-                </ListItemButton>
-              </ListItem>
+                  <ListItemButton
+                    key={item?.scene_category_id}
+                    onClick={() =>
+                      handleSelectSceneCategory(item?.scene_category_id)
+                    }>
+                    <ListItemText primary={item.scene_category} />
+                  </ListItemButton>
+                </ListItem>
+                <Divider />
+              </>
             ))}
             {isNewCategory && (
               <ListItem>

@@ -23,8 +23,9 @@ export default function DashboardReverbLayout() {
   const [pageNumber, setPageNumber] = useState(1);
 
   useEffect(() => {
+    console.log('hit rever orders pull');
     dispatch(getOrders(pageNumber));
-  }, [pageNumber]);
+  }, []);
 
   const onPageChange = (event, pageNumber) => {
     setPageNumber(pageNumber);
