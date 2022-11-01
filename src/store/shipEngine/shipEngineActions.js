@@ -1,5 +1,6 @@
 import autoBind from 'auto-bind';
 import ShipEngineApi from '../../api/shipEngine';
+import { popErrorMessage } from '../alert/alertActions';
 import { closeDialog, dialogType } from '../dialog/dialogSlice';
 
 import {
@@ -17,6 +18,14 @@ import {
   setShipments,
   setShipmentsLoading,
 } from './shipEngineSlice';
+
+const tryParse = (data) => {
+  try {
+    return JSON.parse(data);
+  } catch {
+    return false;
+  }
+};
 
 export default class ShipEngineActions {
   constructor() {
@@ -92,8 +101,23 @@ export default class ShipEngineActions {
 
   createLabel(shipmentId) {
     return async (dispatch, getState) => {
-      const label = await this.shipEngineApi.createLabel(shipmentId);
-      dispatch(setLabel({ details: label, isError: false }));
+      const handleCreateLabelResponse = ({ status, data }) => {
+        const message = tryParse(data);
+        if (status !== 200) {
+          dispatch(
+            popErrorMessage(
+              message
+                ? `Failed to create label from shipment: ${message}`
+                : `Failed to create label from shipment`
+            )
+          );
+        }
+      };
+
+      const response = await this.shipEngineApi.createLabel(shipmentId);
+      handleCreateLabelResponse(response);
+
+      dispatch(setLabel({ details: response.data, isError: false }));
     };
   }
 
