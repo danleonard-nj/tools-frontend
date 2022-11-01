@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { DashboardFitnessLayout } from '../layouts/DashboardFitnessLayout';
 import DashboardKasaLayout from '../layouts/DashboardKasaLayout';
 import DashboardKasaSceneLayout from '../layouts/DashboardKasaSceneLayout';
+import { DashboardKubernetesLogLayout } from '../layouts/DashboardKubernetesLogLayout';
 import { DashboardLocationHistoryLayout } from '../layouts/DashboardLocationHistoryLayout';
 import DashboardRemindersLayout from '../layouts/DashboardRemindersLayout';
 import DashboardReverbLayout from '../layouts/DashboardReverbLayout';
@@ -25,6 +26,7 @@ export default function Dashboard() {
       {dashboardPage === 'reminders' && <DashboardRemindersLayout />}
       {dashboardPage === 'fitness' && <DashboardFitnessLayout />}
       {dashboardPage === 'locations' && <DashboardLocationHistoryLayout />}
+      {dashboardPage === 'kubernetes' && <DashboardKubernetesLogLayout />}
     </Container>
   );
 }
