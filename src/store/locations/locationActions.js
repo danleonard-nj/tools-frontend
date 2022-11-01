@@ -1,25 +1,31 @@
+import { get } from 'ace-builds/src-noconflict/ace';
 import LocationApi from '../../api/locationApi';
 import { popErrorMessage, popMessage } from '../alert/alertActions';
-import { setLocations, setLocationsLoading } from './locationSlice';
+import {
+  setLocations,
+  setLocationsLoading,
+  setLocationTab,
+  setSelectedLocation,
+} from './locationSlice';
 
 export function queryLocations(latitude, longitude, miles, limit) {
   return async (dispatch, getState) => {
-    miles ??= 10;
-    limit ??= 10;
+    const state = getState();
+
+    const querySettings = state.location.querySettings;
 
     dispatch(setLocationsLoading(true));
 
     const api = new LocationApi();
-
     dispatch(popMessage('Querying location...'));
 
     const query = {
+      ...querySettings,
       latitude: latitude,
       longitude: longitude,
-      limit: limit,
-      range: miles,
-      include_timestamps: true,
     };
+
+    console.log(query);
 
     const locations = await api.query(query);
 
@@ -34,5 +40,12 @@ export function queryLocations(latitude, longitude, miles, limit) {
       dispatch(popMessage('Location data fetched successfully!'));
       dispatch(setLocations(locations.data));
     }
+  };
+}
+
+export function selectLocation(location) {
+  return async (dispatch, getState) => {
+    dispatch(setSelectedLocation(location));
+    dispatch(setLocationTab(2));
   };
 }

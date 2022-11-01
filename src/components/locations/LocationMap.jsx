@@ -1,23 +1,53 @@
 import GoogleMapReact from 'google-map-react';
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { queryLocations } from '../../store/locations/locationActions';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  queryLocations,
+  selectLocation,
+} from '../../store/locations/locationActions';
+import PlaceIcon from '@mui/icons-material/Place';
+import { IconButton, styled } from '@mui/material';
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const style = {
+  ':hover': {
+    color: '#000',
+    cursor: 'pointer',
+  },
+};
+
+const Marker = ({ location }) => {
+  const dispatch = useDispatch();
+
+  const onMarkerClick = (event) => {
+    console.log(event);
+    console.log('hit the button');
+    console.log(location);
+    dispatch(selectLocation(location));
+    event.stopPropagation();
+  };
+
+  return (
+    <IconButton onClick={onMarkerClick}>
+      <PlaceIcon color='error' fontSize='large' />
+    </IconButton>
+  );
+};
+
+const defaultProps = {
+  center: {
+    lat: 33.5745223,
+    lng: -111.9782943,
+  },
+  zoom: 11,
+};
 
 const LocationMap = () => {
   const dispatch = useDispatch();
-  const defaultProps = {
-    center: {
-      lat: 33.5745223,
-      lng: -111.9782943,
-    },
-    zoom: 11,
-  };
+  const locationsLoading = useSelector((x) => x.location.locationsLoading);
+  const locations = useSelector((x) => x.location.locations) ?? [];
 
   const onClick = (data) => {
     dispatch(queryLocations(data.lat, data.lng));
-    console.log(data);
   };
 
   return (
@@ -28,7 +58,14 @@ const LocationMap = () => {
         bootstrapURLKeys={{ key: '' }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}>
-        <AnyReactComponent lat={59.955413} lng={30.337844} text='My Marker' />
+        {locations.map((location) => (
+          <Marker
+            sx={style}
+            lat={location.latitude}
+            lng={location.longitude}
+            location={location}
+          />
+        ))}
       </GoogleMapReact>
     </div>
   );

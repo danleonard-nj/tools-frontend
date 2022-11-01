@@ -1,6 +1,6 @@
+import config from '../config.json';
 import { serviceScopes } from '../msalConfig';
 import ApiBase from './apiBase';
-import config from '../config.json';
 
 export default class FitnessApi extends ApiBase {
   constructor() {

@@ -9,7 +9,6 @@ import sceneReducer from './kasa/sceneSlice';
 import flowReducer from './kasa/flowSlice';
 import presetReducer from './kasa/presetSlice';
 import shipEngineReducer from './shipEngine/shipEngineSlice';
-import remoteReducer from './kasa/remoteSlice';
 import reverbReducer from './reverb/reverbSlice';
 import reminderSlice from './reminders/reminderSlice';
 import fitnessSlice from './fitness/fitnessSlice';
@@ -26,7 +25,6 @@ const rootReducer = combineReducers({
   flow: flowReducer,
   preset: presetReducer,
   shipEngine: shipEngineReducer,
-  remotes: remoteReducer,
   reverb: reverbReducer,
   reminders: reminderSlice,
   fitness: fitnessSlice,

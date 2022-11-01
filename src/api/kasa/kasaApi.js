@@ -1,7 +1,7 @@
 import { serviceScopes } from '../../msalConfig';
 import ApiBase from '../apiBase';
 
-export default class KasaV2Api extends ApiBase {
+export default class KasaApi extends ApiBase {
   constructor() {
     super(serviceScopes.kasa);
   }

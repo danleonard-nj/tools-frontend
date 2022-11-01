@@ -13,16 +13,15 @@ import { Box } from '@mui/system';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { dialogType, openDialog } from '../../store/dialog/dialogSlice';
-import { setShowCanceledShipments } from '../../store/shipEngine/shipEngineSlice';
-
 import {
   getBalances,
   getLookups,
   getShipments,
   updateShipEnginePagination,
 } from '../../store/shipEngine/shipEngineActions';
-import CreateShipmentDialog from '../shipEngine/CreateShipmentDialog';
-import ShipmentTable from '../shipEngine/shipmentTable/ShipmentTable';
+import { setShowCanceledShipments } from '../../store/shipEngine/shipEngineSlice';
+import ShipEngineCreateShipmentDialog from '../shipEngine/ShipEngineCreateShipmentDialog';
+import ShipEngineShipmentTable from '../shipEngine/shipmentTable/ShipEngineShipmentTable';
 import Spinner from '../Spinner';
 
 export default function DashboardShipEngineLayout() {
@@ -91,14 +90,14 @@ export default function DashboardShipEngineLayout() {
               display: 'flex',
               flexDirection: 'column',
             }}>
-            <CreateShipmentDialog />
+            <ShipEngineCreateShipmentDialog />
             <Box
               id='ship-engine-shipment-table-box'
               sx={{
                 minHeight: '55vh',
               }}>
               {!shipmentsLoading ? (
-                <ShipmentTable id='ship-engine-shipment-table' />
+                <ShipEngineShipmentTable id='ship-engine-shipment-table' />
               ) : (
                 <Container>
                   <Spinner />

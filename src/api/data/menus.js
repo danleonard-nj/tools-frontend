@@ -3,12 +3,12 @@ const pages = [
   'Tasks',
   'Kasa',
   'Scenes',
-  'Devices',
   'ShipEngine',
   'Reverb',
   'Reminders',
   'Fitness',
   'Locations',
+  'Kubernetes',
 ];
 
 export { pages };

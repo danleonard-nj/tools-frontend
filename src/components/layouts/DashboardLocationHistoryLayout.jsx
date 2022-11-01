@@ -1,7 +1,7 @@
 import { Box, Container, Grid, Paper } from '@mui/material';
 import React from 'react';
 import { scrollable } from '../../api/helpers/formattingHelpers';
-import { LocationList } from '../locations/LocationList';
+import { LocationDetailContainer } from '../locations/LocationList';
 import { LocationMap } from '../locations/LocationMap';
 
 const DashboardLocationHistoryLayout = () => {
@@ -22,7 +22,7 @@ const DashboardLocationHistoryLayout = () => {
               </Grid>
               <Grid item lg={4}>
                 <Box sx={scrollable}>
-                  <LocationList />
+                  <LocationDetailContainer />
                 </Box>
               </Grid>
             </Grid>

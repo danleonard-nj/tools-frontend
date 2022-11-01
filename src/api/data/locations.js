@@ -1,5 +1,4 @@
 const getLocationName = (location) => {
-  console.log(location);
   if (!location.reverse_geocoded?.locations?.length) {
     return `Lat/Long: ${location.latitude},${location.longitude}`;
   } else {

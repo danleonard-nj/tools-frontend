@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateSceneState } from '../../../store/kasa/actions/sceneActions';
 import KasaSceneFlow from '../scene/KasaSceneFlow';
 import KasaSceneFlowToolbar from './KasaSceneFlowToolbar';
-import SceneToolbar from './SceneToolbar';
+import KasaSceneToolbar from './KasaSceneToolbar';
 
 export default function KasaScene() {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ export default function KasaScene() {
         />
       </Grid>
       <Grid item lg={4} xs={12} align='right'>
-        <SceneToolbar />
+        <KasaSceneToolbar />
       </Grid>
 
       <Grid item lg={12} xs={12}>

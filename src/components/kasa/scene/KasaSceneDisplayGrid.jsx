@@ -1,4 +1,4 @@
-import { Grid, Paper } from '@mui/material';
+import { Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 import Spinner from '../../Spinner';
 import { KasaSceneCategoryList } from './KasaSceneCategoryList';
@@ -18,9 +18,7 @@ export default function KasaSceneDisplayGrid() {
         <KasaSceneCategoryList />
       </Grid>
       <Grid item lg={8}>
-        <Paper elevation={3} sx={{ padding: 1, m: 1 }}>
-          <KasaSceneGrid />
-        </Paper>
+        <KasaSceneGrid />
       </Grid>
     </Grid>
   );

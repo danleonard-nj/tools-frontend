@@ -5,6 +5,7 @@ import { EditNotificationDialog } from './reminders/dialogs/EditNotificationDial
 import { EditReminderDialog } from './reminders/dialogs/EditReminderDialog';
 import { CreateReminderLocationDialog } from './reminders/dialogs/layout/CreateLocationDialog';
 import { ViewDestinationDetailsDialog } from './reminders/dialogs/ViewDestinationDetailsDialog';
+import ReverbOrderDetailDialog from './reverb/ReverbOrderDetailDialog';
 import ScheduleAddLinkDialog from './schedule/dialogs/ScheduleAddLinkDialog';
 import ScheduleDeleteConfirmDialog from './schedule/dialogs/ScheduleDeleteConfirmDialog';
 import DeleteTaskConfirmationDialog from './task/dialogs/DeleteTaskConfirmationDialog';
@@ -22,6 +23,7 @@ export const DialogProvider = () => {
       <KasaSceneCategoryDialog />
       <KasaSceneCategoryRemoveDialog />
       <KasaDeviceClientResponseDialog />
+      <ReverbOrderDetailDialog />
     </>
   );
 };

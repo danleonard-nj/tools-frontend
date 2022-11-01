@@ -12,8 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { dialogType, openDialog } from '../../store/dialog/dialogSlice';
 import { getOrders } from '../../store/reverb/reverbActions';
-import OrderDetailDialog from '../reverb/OrderDetailDialog';
-import OrderTable from '../reverb/OrderTable';
+import ReverbOrderTable from '../reverb/ReverbOrderTable';
 import Spinner from '../Spinner';
 
 export default function DashboardReverbLayout() {
@@ -23,7 +22,6 @@ export default function DashboardReverbLayout() {
   const [pageNumber, setPageNumber] = useState(1);
 
   useEffect(() => {
-    console.log('hit rever orders pull');
     dispatch(getOrders(pageNumber));
   }, []);
 
@@ -37,7 +35,6 @@ export default function DashboardReverbLayout() {
 
   return (
     <Toolbar>
-      <OrderDetailDialog />
       <Grid container spacing={3}>
         <Grid item lg={10}></Grid>
         <Grid item lg={2}>
@@ -59,7 +56,7 @@ export default function DashboardReverbLayout() {
                 minHeight: '55vh',
               }}>
               {!ordersLoading ? (
-                <OrderTable />
+                <ReverbOrderTable />
               ) : (
                 <Container justifyContent='center'>
                   <Spinner />

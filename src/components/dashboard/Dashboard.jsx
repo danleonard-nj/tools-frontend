@@ -4,12 +4,12 @@ import { useSelector } from 'react-redux';
 import { DashboardFitnessLayout } from '../layouts/DashboardFitnessLayout';
 import DashboardKasaLayout from '../layouts/DashboardKasaLayout';
 import DashboardKasaSceneLayout from '../layouts/DashboardKasaSceneLayout';
+import { DashboardLocationHistoryLayout } from '../layouts/DashboardLocationHistoryLayout';
 import DashboardRemindersLayout from '../layouts/DashboardRemindersLayout';
 import DashboardReverbLayout from '../layouts/DashboardReverbLayout';
 import DashboardScheduleLayout from '../layouts/DashboardScheduleLayout';
 import DashboardShipEngineLayout from '../layouts/DashboardShipEngineLayout';
 import DashboardTaskLayout from '../layouts/DashboardTaskLayout';
-import { DashboardLocationHistoryLayout } from '../layouts/DashboardLocationHistoryLayout';
 
 export default function Dashboard() {
   const dashboardPage = useSelector((x) => x.dashboard.page);
