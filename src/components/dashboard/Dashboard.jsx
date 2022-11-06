@@ -1,6 +1,7 @@
 import { Container } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import DashboardFeatureLayout from '../layouts/DashboardFeatureLayout';
 import { DashboardFitnessLayout } from '../layouts/DashboardFitnessLayout';
 import DashboardKasaLayout from '../layouts/DashboardKasaLayout';
 import DashboardKasaSceneLayout from '../layouts/DashboardKasaSceneLayout';
@@ -27,6 +28,7 @@ export default function Dashboard() {
       {dashboardPage === 'fitness' && <DashboardFitnessLayout />}
       {dashboardPage === 'locations' && <DashboardLocationHistoryLayout />}
       {dashboardPage === 'kubernetes' && <DashboardKubernetesLogLayout />}
+      {dashboardPage === 'features' && <DashboardFeatureLayout />}
     </Container>
   );
 }

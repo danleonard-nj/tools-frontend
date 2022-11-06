@@ -14,6 +14,7 @@ import reminderSlice from './reminders/reminderSlice';
 import fitnessSlice from './fitness/fitnessSlice';
 import locationSlice from './locations/locationSlice';
 import kubeLogsSlice from './kubeLogs/kubeLogSlice';
+import featureSlice from './features/featureSlice';
 
 const rootReducer = combineReducers({
   schedule: scheduleReducer,
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   fitness: fitnessSlice,
   location: locationSlice,
   kubeLogs: kubeLogsSlice,
+  feature: featureSlice,
 });
 
 export default rootReducer;
