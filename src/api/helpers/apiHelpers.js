@@ -1,9 +1,5 @@
-const getErrorMessage = (response) => {
-  return new Error(
-    `Failed to update scene: ${response?.status}: ${
-      response.data?.message ?? 'Unhandled server exception'
-    }`
-  );
+const getErrorMessage = (data) => {
+  return `${data.error}: ${data.message}`;
 };
 
 const sortBy = (obj, prop) => {

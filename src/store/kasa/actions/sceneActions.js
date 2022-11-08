@@ -10,6 +10,10 @@ import {
   updateSceneStateInternal,
 } from '../sceneSlice';
 
+const getErrorMessage = (data) => {
+  return `${data.error}: ${data.message}`;
+};
+
 export default class SceneActions {
   constructor() {
     this.sceneApi = new SceneApi();
@@ -18,15 +22,23 @@ export default class SceneActions {
 
   createSceneCategory(categoryName) {
     return async (dispatch, getState) => {
-      const handleCreateSceneCategoryResult = (status) => {
+      const handleCreateSceneCategoryResult = ({ status, data }) => {
         if (status !== 200) {
-          dispatch(popErrorMessage('Failed to create scene category'));
+          dispatch(
+            popErrorMessage(
+              `Failed to create scene category: ${getErrorMessage(data)}`
+            )
+          );
         }
       };
 
-      const handleGetSceneCategoriesResult = (status) => {
+      const handleGetSceneCategoriesResult = ({ status, data }) => {
         if (status !== 200) {
-          dispatch(popErrorMessage('Failed to fetch scene category list'));
+          dispatch(
+            popErrorMessage(
+              `Failed to fetch scene category list: ${getErrorMessage(data)}`
+            )
+          );
         }
       };
 
@@ -34,40 +46,39 @@ export default class SceneActions {
         scene_category: categoryName,
       });
 
-      handleCreateSceneCategoryResult(result.status);
+      handleCreateSceneCategoryResult(result);
 
       const sceneCategories = await this.sceneApi.getSceneCategories();
 
-      handleGetSceneCategoriesResult(sceneCategories.status);
+      handleGetSceneCategoriesResult(sceneCategories);
       dispatch(setSceneCategories(sceneCategories.data));
     };
   }
 
   updateSceneCategory(sceneId, sceneCategoryId) {
     return async (dispatch, getState) => {
-      const handleGetSceneResultMessage = (status) => {
+      const handleGetSceneResultMessage = ({ status, data }) => {
         if (status !== 200) {
           dispatch(
-            popErrorMessage(`Failed to fetch scene with the ID '${sceneId}'`)
+            popErrorMessage(`Failed to fetch scene with the ID '${sceneId}': `)
           );
         }
       };
 
       // Get the scene to update
-      const { data: scene, status: sceneStatus } = await this.sceneApi.getScene(
-        sceneId
-      );
+      const response = await this.sceneApi.getScene(sceneId);
 
       // Update the scene category
-      handleGetSceneResultMessage(sceneStatus);
+      handleGetSceneResultMessage(response);
+
+      const scene = response.data;
       scene.scene_category_id = sceneCategoryId;
 
       await this.sceneApi.updateScene(scene);
 
-      const { data: scenes, status: scenesStatus } =
-        await this.sceneApi.getScenes();
+      const scenesResponse = await this.sceneApi.getScenes();
 
-      dispatch(setScenes(scenes));
+      dispatch(setScenes(scenesResponse.data));
     };
   }
 
@@ -96,7 +107,6 @@ export default class SceneActions {
       const state = getState();
 
       const scenes = state.scene.scenes ?? [];
-      console.log('scenes ', scenes);
       const filteredScenes = scenes.filter(
         (x) => x.scene_category_id === categoryId
       );
@@ -152,10 +162,11 @@ export default class SceneActions {
 
   runScene(sceneId, regionId) {
     return async (dispatch, getState) => {
-      const handleResultMessage = (status) => {
+      const handleResultMessage = ({ status, data }) => {
+        console.log('response data: ', data);
         dispatch(
           status !== 200
-            ? popErrorMessage('Failed to run scene')
+            ? popErrorMessage(`Failed to run scene: ${getErrorMessage(data)}`)
             : popMessage('Scene run successfully')
         );
       };
@@ -164,7 +175,7 @@ export default class SceneActions {
       const response = await this.sceneApi.runScene(sceneId, regionId);
 
       // Pop a message on success or failure
-      handleResultMessage(response?.status);
+      handleResultMessage(response);
     };
   }
 

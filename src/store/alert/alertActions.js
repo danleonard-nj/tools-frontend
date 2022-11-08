@@ -13,9 +13,7 @@ class AlertActions {
     return {
       isOpen: true,
       severity: 'error',
-      message: `${error?.exception ?? 'Exception'}: ${
-        error?.message ?? 'Unhandled exception'
-      }`,
+      message: error,
     };
   };
 

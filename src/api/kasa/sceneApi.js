@@ -7,18 +7,12 @@ export default class SceneApi extends ApiBase {
   }
 
   async getScenes(categoryId) {
-    const response = await fetch(
+    return await this.send(
       categoryId
         ? `${this.baseUrl}/api/kasa/scene?category=${categoryId}`
         : `${this.baseUrl}/api/kasa/scene`,
-      {
-        method: 'GET',
-        headers: await this.getAuthHeaders(),
-      }
+      'GET'
     );
-
-    const json = await response.json();
-    return { data: json, status: response.status };
   }
 
   async getScene(sceneId) {
