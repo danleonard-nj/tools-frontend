@@ -54,12 +54,12 @@ const KubernetesLogs = () => {
 
   return (
     <Grid container spacing={3} sx={{ marginTop: 3 }}>
-      <Grid item lg={12}>
+      <Grid item lg={12} xs={12} sm={12} md={12}>
         <Grid container spacing={3}>
-          <Grid item lg={1}>
+          <Grid item lg={1} xs={12} sm={6}>
             <Typography>Lines</Typography>
           </Grid>
-          <Grid item lg={3}>
+          <Grid item lg={3} xs={12} sm={6}>
             <Slider
               aria-label='Miles'
               value={slider}
@@ -74,7 +74,7 @@ const KubernetesLogs = () => {
               max={5000}
             />
           </Grid>
-          <Grid item lg={3}>
+          <Grid item lg={3} xs={6} sm={6}>
             <Button
               variant='filled'
               sx={{ margin: 'auto' }}
@@ -99,7 +99,7 @@ const KubernetesLogs = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item lg={12}>
+      <Grid item lg={12} xs={12} sm={12} md={12}>
         <TextField
           placeholder=''
           multiline
